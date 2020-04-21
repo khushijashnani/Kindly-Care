@@ -1,0 +1,14 @@
+{%extends 'base.html'%}
+{%block content%}
+<form method="POST">
+    {{form.hidden_tag()}}
+    {{form.name.label}}{{form.name}}<br><br>
+    {{form.email.label}}{{form.email}}<br></br>
+
+    {{form.password.label}}{{form.password}}<br></br>
+    {{form.pass_confirm.label}}{{form.pass_confirm}}<br></br>
+    {{form.submit()}}
+</form>
+
+
+{%endblock%}
