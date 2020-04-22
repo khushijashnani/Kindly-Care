@@ -22,6 +22,7 @@ def form():
         print("123")
         for x in Hospitals.query.all():
             print(x.start_time)
+            print(x.end_time)
             print(x.days)
         return render_template('home.html')
     return render_template('hform.html',form=form)

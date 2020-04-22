@@ -14,11 +14,11 @@
         {{form.contact.label}}
         {{form.contact()}}<br>
         {{form.start_time.label}}
-        {{form.start_time()}}<br>
+        <input type="time" name='start_time'><br>
         {{form.end_time.label}}
-        {{form.end_time()}}<br>
+        <input type="time" name='end_time'><br>
         {{form.days.label}}
-        {{form.days(row=7,multiple=True)}}<br>
+        {{form.days(rows=7,multiple=True)}}<br>
         {{form.submit()}}
     </form>
 </div>

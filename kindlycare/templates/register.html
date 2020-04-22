@@ -1,0 +1,23 @@
+{%extends 'base.html'%}
+{%block content%}
+<form method="POST">
+    {{form.hidden_tag()}}
+    <div class="card mt-3">
+        <div class="card-body">
+            <p class="h3 text-center">Register</p>
+            <div class="form-group">{{form.name.label(class='form-group')}}{{form.name(class='form-control')}}</div>
+            <div class="form-group">{{form.email.label(class='form-group')}}{{form.email(class='form-control')}}</div>
+
+            <div class="form-group">{{form.password.label(class='form-group')}}{{form.password(class='form-control')}}
+            </div>
+            <div class="form-group">
+                {{form.pass_confirm.label(class='form-group')}}{{form.pass_confirm(class='form-control')}}</div>
+            <div class="form-group">{{form.submit(class='btn btn-outline-success')}}</div>
+            <small id="emailHelp" class="form-text text-muted">Already have an account? <a
+                    href="{{url_for('users.login')}}">Log In</a></small>
+        </div>
+    </div>
+</form>
+
+
+{%endblock%}
