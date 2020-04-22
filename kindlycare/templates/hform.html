@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="jumbotron">
+    <form method="POST">
+        {{form.hidden_tag()}}
+        {{form.name.label}}
+        {{form.name()}}<br>
+        {{form.speciality.label}}
+        {{form.speciality()}}<br>
+        {{form.address.label}}
+        {{form.address()}}<br>
+        {{form.description.label}}
+        {{form.description()}}<br>
+        {{form.contact.label}}
+        {{form.contact()}}<br>
+        {{form.start_time.label}}
+        {{form.start_time()}}<br>
+        {{form.end_time.label}}
+        {{form.end_time()}}<br>
+        {{form.days.label}}
+        {{form.days(row=7,multiple=True)}}<br>
+        {{form.submit()}}
+    </form>
+</div>
+{% endblock %}
