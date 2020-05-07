@@ -3,10 +3,11 @@ from wtforms import StringField,SubmitField,IntegerField,IntegerField,TextAreaFi
 from wtforms.validators import DataRequired
 
 class HospitalForm(FlaskForm):
-    name = StringField(label='Enter your name:',validators=[DataRequired()])
+    doctor_name = StringField('Enter Your name as mentioned in previous form',validators=[DataRequired()])
+    name = StringField(label='Enter Hospital name:',validators=[DataRequired()])
     speciality = StringField('Enter speciality:',validators=[DataRequired()])
     description = TextAreaField('Enter description:',validators=[DataRequired()])
-    contact = IntegerField('Enter centers contact no: ',validators=[DataRequired()])
+    contact_no = IntegerField('Enter centers contact no: ',validators=[DataRequired()])
     address = TextField('Enter the location of the center: ',validators=[DataRequired()])
     start_time = TimeField('Starting time:',validators=[DataRequired()])
     end_time = TimeField('Closing time:',validators=[DataRequired()])

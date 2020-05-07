@@ -5,16 +5,50 @@
     <div class="card mt-3">
         <div class="card-body">
             <p class="h3 text-center">Register</p>
-            <div class="form-group">{{form.name.label(class='form-group')}}{{form.name(class='form-control')}}</div>
-            <div class="form-group">{{form.email.label(class='form-group')}}{{form.email(class='form-control')}}</div>
-
-            <div class="form-group">{{form.password.label(class='form-group')}}{{form.password(class='form-control')}}
+            <div class="form-group">
+                {{form.name.label(class="form-group")}}
+                {{form.name(class="form-control")}}  
             </div>
             <div class="form-group">
-                {{form.pass_confirm.label(class='form-group')}}{{form.pass_confirm(class='form-control')}}</div>
+                {{form.email.label(class="form-group")}}
+                {{form.email(class="form-control")}}  
+            </div>
+            <div class="form-group">
+                {{form.visiting_hours.label(class="form-group")}}
+                {{form.visiting_hours(class="form-control")}}  
+            </div>
+            <div class="form-group">
+                {{form.qualification.label(class="form-group")}}
+                {{form.qualification(class="form-control")}}  
+            </div>
+            <div class="form-group">
+                {{form.specialization.label(class="form-group")}}
+                {{form.specialization(class="form-control")}}  
+            </div>
+            <div class="form-group">
+                {{form.consultation_fees.label(class="form-group")}}
+                {{form.consultation_fees(class="form-control")}}  
+            </div>
+            <div class="form-group">
+                {{form.experience.label(class="form-group")}}
+                {{form.experience(class="form-control")}}  
+            </div>
+            <div class="form-group">
+                {{form.contact_number.label(class="form-group")}}
+                {{form.contact_number(class="form-control")}}  
+            </div>
+            <div class="form-group">
+                {{form.description.label(class="form-group")}}
+                {{form.description(class="form-control")}}  
+            </div>
+            <div class="form-group">
+                {{form.password.label(class="form-group")}}
+                {{form.password(class="form-control")}}  
+            </div>
+            
             <div class="form-group">{{form.submit(class='btn btn-outline-success')}}</div>
             <small id="emailHelp" class="form-text text-muted">Already have an account? <a
-                    href="{{url_for('users.login')}}">Log In</a></small>
+                    href="{{url_for('doctors.login')}}">Log In</a></small>
         </div>
     </div>
 </form>

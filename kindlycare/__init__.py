@@ -20,12 +20,14 @@ Migrate(app, db)
 from flask_login import LoginManager
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = 'users.login'
+login_manager.login_view = 'doctors.login'
 
-from kindlycare.users.views import users
+#from kindlycare.users.views import users
 from kindlycare.core.views import core
-from kindlycare.hospitals.views import hosp
+from kindlycare.hospitals.views import hospitals
+from kindlycare.doctors.views import doctors
 
 app.register_blueprint(core)
-app.register_blueprint(users)
-app.register_blueprint(hosp)
+#app.register_blueprint(users)
+app.register_blueprint(hospitals)
+app.register_blueprint(doctors)

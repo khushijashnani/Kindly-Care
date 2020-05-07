@@ -1,4 +1,4 @@
-from wtforms import StringField, SubmitField, PasswordField
+from wtforms import StringField, SubmitField, PasswordField, TextAreaField, IntegerField
 from flask_wtf import FlaskForm
 from wtforms.validators import DataRequired, Email, EqualTo
 from wtforms import ValidationError
@@ -37,3 +37,4 @@ class UpdateUserForm(FlaskForm):
     def check_email(self, field):
         if User.query.filter_by(email=field.data).first():
             raise ValidationError('Your email has already been registered')
+
