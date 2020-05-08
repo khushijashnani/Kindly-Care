@@ -1,52 +1,53 @@
-from flask import Blueprint, render_template, url_for, request, redirect, flash
-from flask_login import login_user, current_user, logout_user, login_required
-from kindlycare import db
-from kindlycare.models import User
-from kindlycare.users.forms import RegistrationForm, LoginForm, UpdateUserForm
+# from flask import Blueprint, render_template, url_for, request, redirect, flash
+# from flask_login import login_user, current_user, logout_user, login_required
+# from kindlycare import db
+# from kindlycare.models import User
+# from kindlycare.users.forms import RegistrationForm, LoginForm, UpdateUserForm
 
 
-users = Blueprint('users', __name__)
+# users = Blueprint('users', __name__)
 
 
-@users.route('/register', methods=['GET', 'POST'])
-def register():
 
-    form = RegistrationForm()
+# @users.route('/register', methods=['GET', 'POST'])
+# def register():
 
-    if form.validate_on_submit():
-        user = User(name=form.name.data, email=form.email.data,
-                    password=form.password.data)
+#     form = RegistrationForm()
 
-        db.session.add(user)
-        db.session.commit()
+#     if form.validate_on_submit():
+#         user = User(name=form.name.data, email=form.email.data,
+#                     password=form.password.data)
 
-        flash('Thanks for registration!')
-        return redirect(url_for('core.home'))
+#         db.session.add(user)
+#         db.session.commit()
 
-    return render_template('register.html', form=form)
+#         flash('Thanks for registration!')
+#         return redirect(url_for('core.home'))
 
-@users.route('/login', methods=['GET', 'POST'])
-def login():
+#     return render_template('register.html', form=form)
 
-    form = LoginForm()
-    if form.validate_on_submit():
+# @users.route('/login', methods=['GET', 'POST'])
+# def login():
 
-        user = User.query.filter_by(email=form.email.data).first()
+#     form = LoginForm()
+#     if form.validate_on_submit():
 
-        if user is not None and user.check_password(form.password.data):
-            login_user(user)
-            flash('Login Success')
+#         user = User.query.filter_by(email=form.email.data).first()
 
-            next = request.args.get('next')
+#         if user is not None and user.check_password(form.password.data):
+#             login_user(user)
+#             flash('Login Success')
 
-            if next == None or not next[0] == '/':
-                next = url_for('core.home')
+#             next = request.args.get('next')
 
-            return redirect(next)
+#             if next == None or not next[0] == '/':
+#                 next = url_for('core.home')
 
-    return render_template('login.html', form=form)
+#             return redirect(next)
 
-@users.route('/logout')
-def logout():
-    logout_user()
-    return redirect(url_for('core.home'))
+#     return render_template('login.html', form=form)
+
+# @users.route('/logout')
+# def logout():
+#     logout_user()
+#     return redirect(url_for('core.home'))
