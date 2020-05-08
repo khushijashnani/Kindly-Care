@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Kindly-Care</title>
+    <link rel="stylesheet" href="home.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
@@ -25,8 +26,12 @@
                 -webkit-text-fill-color: transparent;font-size: x-large;">Kindly-Care</a>
             <li class="nav-item"><a href="{{url_for('core.home')}}" class="nav-link">Home</a></li>
             <li class="nav-item"><a href="{{url_for('core.home')}}" class="nav-link">Doctors</a></li>
-            <li class="nav-item"><a href="{{url_for('core.home')}}" class="nav-link">About</a></li>
+
         </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
         <ul class="navbar-nav ml-auto">
             {%if current_user.is_authenticated%}
             <li class="nav-item dropdown">
@@ -41,12 +46,14 @@
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{url_for('users.logout')}}">Log Out</a>
                 </div>
+
             </li>
             {%else%}
             <li class="nav-item"><a class="btn btn-sm btn-outline-primary" href="{{url_for('users.register')}}"> Login /
                     Signup </a></li>
             {%endif%}
         </ul>
+
     </nav>
     <div class="container">
         {% block content %}
