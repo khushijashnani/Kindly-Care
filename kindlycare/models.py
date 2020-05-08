@@ -11,6 +11,18 @@ services = db.Table('services',
         db.Column('service_id',db.Integer,db.ForeignKey('services.id')),
         db.Column('hosp_id',db.Integer,db.ForeignKey('hospital.id'))
     )'''
+    '''
+class Feedback(db.Model):
+    __tablename__='feedback'
+    id = db.Column(db.Integer,primary_key=True)
+    hosp_id = db.Column(db.Integer,db.ForeignKey('hospital.id'))
+    desc = db.Column(db.Text) 
+
+class services(db.Model):
+    __tablename__='services'
+    id = db.Column(db.Integer,primary_key=True)
+    name = db.Column(db.String(30))
+'''    
 
 class Hospitals(db.Model):
     __tablename__ = 'hospital'
@@ -27,40 +39,3 @@ class Hospitals(db.Model):
     #doctors = db.relationship('Doctors',secondary=docs,backref=db.backref('hospital',lazy = 'dynamic'))
     #feedbacks = db.relationship('feedback',backref='hospital')
 
-class Feedback(db.Model):
-    __tablename__='feedback'
-    id = db.Column(db.Integer,primary_key=True)
-    hosp_id = db.Column(db.Integer,db.ForeignKey('hospital.id'))
-    desc = db.Column(db.Text) 
-'''
-class services(db.Model):
-    __tablename__='services'
-    id = db.Column(db.Integer,primary_key=True)
-    name = db.Column(db.String(30))
-'''    
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(user_id)
-
-
-class User(db.Model, UserMixin):
-
-    __tablename__ = 'users'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(64))
-    email = db.Column(db.String(), unique=True)
-    password_hash = db.Column(db.String(128))
-    profile_image = db.Column(
-        db.String(20), nullable=False, default='default_profile.png')
-
-    def __init__(self, name, email, password):
-        self.email = email
-        self.name = name
-        self.password_hash = generate_password_hash(password)
-
-    def check_password(self, password):
-        return check_password_hash(self.password_hash, password)
-
-    def __repr__(self):
-        return f'{self.name}{self.email}'
