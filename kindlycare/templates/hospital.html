@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="jumbotron">
+    <div class="card container bg-white p-3">       
+        <h4 class="text-primary">{{hosp.name | title }}</h4>
+        <div class="card-body">
+            <p class="card-text">{{ hosp.speciality }}</p>
+            <p class="card-text text-muted">{{ hosp.doctor | length }} {% if hosp.doctor | length ==1 %}Doctor{% else %}Doctors{% endif %}</p>
+        </div>  
+        <div class="card-body">
+            <a href="#" class="btn btn-primary">Call Now</a>
+        </div>   
+    </div>
+    <br>
+    <div class=" border container bg-white p-2">    
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <a class="nav-item nav-link active" id="nav-overview-tab" data-toggle="tab" href="#nav-overview" role="tab" aria-controls="nav-overview" aria-selected="true">Overview</a>
+              <a class="nav-item nav-link" id="nav-doctors-tab" data-toggle="tab" href="#nav-docs" role="tab" aria-controls="nav-doctors" aria-selected="false">Doctors</a>
+              <a class="nav-item nav-link" id="nav-add-tab" data-toggle="tab" href="#nav-add" role="tab" aria-controls="nav-add" aria-selected="false">Address</a>
+              <a class="nav-item nav-link" id="nav-feedbacks-tab" data-toggle="tab" href="#nav-feeds" role="tab" aria-controls="nav-feedbacks" aria-selected="false">Feedbacks</a>
+              <a class="nav-item nav-link" id="nav-feed-tab" data-toggle="tab" href="#nav-feed" role="tab" aria-controls="nav-feed" aria-selected="false">Write a feedback?</a>
+            </div>
+        </nav>
+        <div class="tab-content p-3" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-overview" role="tabpanel" aria-labelledby="nav-overview-tab">
+                <h6><b></b></h6>
+                
+                <div class="card">
+                    <h6 class="card-header"><b>About {{hosp.name}}</b></h6>
+                    <div class="card-body">
+                        <p class="text-muted">{{hosp.description}}</p>
+                    </div>
+                    <h6 class="card-header"><b>Timings</b></h6>
+                    <div class="card-body">
+                        {% for d in hosp.days %}
+                            {% if loop.first or loop.last %}
+                            <p>{{ d }}</p>
+                            {% endif %}
+                        {% endfor %}
+                        <p>{{hosp.start_time }}-{{hosp.end_time }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-add" role="tabpanel" aria-labelledby="nav-add-tab">
+                <div class="card">
+                    <h6 class="card-header"><b>Address</b></h6>
+                    <div class="card-body">
+                        <p>{{hosp.address}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-docs" role="tabpanel" aria-labelledby="nav-doctors-tab">
+                <div class="card">
+                    <h6 class="card-header"><b>Doctors</b></h6>
+                    <div class="card-body">
+                        {% for d in hosp.doctor %}
+                        <p>{{d.name}}</p>
+                        {% endfor %}
+                    </div>
+                </div>  
+            </div>
+            <div class="tab-pane fade" id="nav-feeds" role="tabpanel" aria-labelledby="nav-feedbacks-tab">
+                <div class="card m-2">
+                    <h6 class="card-header"><b>Feedbacks</b></h6>
+                    <div class="card-body">
+                        {% if feed %}
+                        {% for f in feed %}
+                        <div class="card m-1">
+                            <div class="card-body">
+                                <h6 class="card-title"><b>{{f.user_name}}</b></h6>
+                                {% for i in range(f.rating) %}
+                                <i class="fas fa-star mb-1" style="color: #f1c40f;"></i>
+                                {% endfor %}
+                                {% for i in range(5-f.rating) %}
+                                <i class="fas fa-star"></i>
+                                {% endfor %}
+                                <p class="text-muted">{{f.content}}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <h4>No feedbacks</h4>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-feed" role="tabpanel" aria-labelledby="nav-feed-tab">
+                <form method="POST">
+                    {{form.hidden_tag()}}
+                    <div class="card">
+                        <div class="card-header">
+                            <h6><b>Feedback Form</b></h6>
+                        </div>
+                        <div class="card-body">
+                            {{form.user_name.label}}<br>
+                            {{form.user_name(class="form-control")}}<br>
+                            {{form.content.label}}<br>
+                            {{form.content(class="form-control")}}<br>
+                            {{form.rating.label}}<br>
+                            {{form.rating(class="form-control")}}<br>
+                            {{form.submit(class="btn btn-warning")}}
+                        </div>
+                    </div>
+                </form>
+            </div>
+          </div>
+    </div>
+</div>
+{% endblock %}

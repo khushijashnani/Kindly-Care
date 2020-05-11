@@ -16,6 +16,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
 </head>
 
 <body>
@@ -24,8 +25,13 @@
             <a class="navbar-brand" href="#" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;background: -webkit-linear-gradient(red, green); -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;font-size: x-large;">Kindly-Care</a>
             <li class="nav-item"><a href="{{url_for('core.home')}}" class="nav-link">Home</a></li>
-            <li class="nav-item"><a href="{{url_for('core.home')}}" class="nav-link">Doctors</a></li>
+            <li class="nav-item"><a href="{{url_for('core.docs')}}" class="nav-link">Doctors</a></li>
+            <li class="nav-item"><a href="{{url_for('core.hosps')}}" class="nav-link">Hospitals</a></li>
             <li class="nav-item"><a href="{{url_for('core.home')}}" class="nav-link">About</a></li>
+            <form class="form-inline" method= 'GET' action="search">
+                <input type="text" class="form-control " name="query" placeholder="Search">
+                <input type="submit" class="btn btn-primary form-control" value="Search">
+            </form>
         </ul>
         <ul class="navbar-nav ml-auto">
             {%if current_user.is_authenticated%}
@@ -39,16 +45,17 @@
                     <a class="dropdown-item" href="#">My Feedback</a>
                     <a class="dropdown-item" href="#">View/Update Profile</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{url_for('users.logout')}}">Log Out</a>
+                    <a class="dropdown-item" href="{{url_for('doctors.logout')}}">Log Out</a>
                 </div>
             </li>
             {%else%}
-            <li class="nav-item"><a class="btn btn-sm btn-outline-primary" href="{{url_for('users.register')}}"> Login /
+            <li class="nav-item"><a class="btn btn-sm btn-outline-primary" href="{{url_for('doctors.register')}}"> Login /
                     Signup </a></li>
             {%endif%}
         </ul>
     </nav>
     <div class="container">
+        {% include 'includes/_messages.html' %}
         {% block content %}
         {% endblock %}
     </div>

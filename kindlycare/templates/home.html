@@ -1,6 +1,37 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="jumbotron">
-    <h1>This is the home page</h1>
+<div class="container">
+    {% if docs %}
+        {% for doc in docs %}
+        <h3>{{doc.name}}</h3>
+        {% for h in doc.hospital %}
+        <p>Hospitals: {{h.name}}</p>
+        {% endfor %}
+        {% endfor %}
+    {% endif %}
+    {% if hosp %}
+        {% for h in hosp %}
+            <div class="card">
+                <div class="card-body ">
+                    <div class="float-left d-inline-block">
+                        <a class="card-title text-primary" href="{{url_for('hospitals.hosp',hosp_id=h.id)}}"><h4>{{h.name | title }}</h4></a>
+                        <p class="card-text">{{ h.speciality }}</p>
+                        <p class="card-text text-muted">{{ h.doctor | length }} {% if h.doctor | length ==1 %}Doctor{% else %}Doctors{% endif %}</p>
+                    </div>
+                    <div class="float-right d-inline-block">
+                        {% for d in h.days %}
+                        {% if loop.first or loop.last %}
+                        {{ d }}
+                        {% endif %}
+                        {% endfor %}
+                        <p>{{h.start_time }}-{{h.end_time }}</p>
+                        <p>{{h.address}}</p>
+                        <a class="text-primary" href="{{url_for('hospitals.hosp',hosp_id=h.id)}}">View Profile</a>
+                        <a href="#" class="btn btn-primary">Call Now</a>
+                    </div>
+                </div>
+            </div>  
+        {% endfor %}
+    {% endif %}
 </div>
 {% endblock %}
