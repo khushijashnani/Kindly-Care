@@ -8,9 +8,9 @@ core = Blueprint('core', __name__)
 
 @core.route('/')
 def home():
-    print(Doctors.query.all())
-    print(current_user.hospitals_name)
-    print(Hospitals.query.all())
+    # print(Doctors.query.all())
+    # print(current_user.hospitals_name)
+    # print(Hospitals.query.all())
     return render_template('home.html')
 
 
