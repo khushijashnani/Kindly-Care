@@ -16,7 +16,7 @@
                     <div class="float-left d-inline-block">
                         <a class="card-title text-primary" href="{{url_for('hospitals.hosp',hosp_id=h.id)}}"><h4>{{h.name | title }}</h4></a>
                         <p class="card-text">{{ h.speciality }}</p>
-                        <p class="card-text text-muted">{{ h.doctor | length }} {% if h.doctor | length ==1 %}Doctor{% else %}Doctors{% endif %}</p>
+                        <p class="card-text text-muted">{{ h.doctor | length }} {% if h.doctor | length == 1 %}Doctor{% else %}Doctors{% endif %}</p>
                     </div>
                     <div class="float-right d-inline-block">
                         {% for d in h.days %}
