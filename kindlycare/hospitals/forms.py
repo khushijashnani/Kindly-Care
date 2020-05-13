@@ -11,6 +11,10 @@ class HospitalForm(FlaskForm):
     address = TextField('Enter the location of the center: ',validators=[DataRequired()])
     start_time = TimeField('Starting time:',validators=[DataRequired()])
     end_time = TimeField('Closing time:',validators=[DataRequired()])
+    morning_slots = TextAreaField('Enter Your morning slots (Eg. 9-10,11-12,mon,tue,wed...)',validators=[DataRequired()])
+    afternoon_slots = TextAreaField('Enter Your afternoon slots (Eg. 9-10,11-12,mon,tue,wed...)',validators=[DataRequired()])
+    evening_slots = TextAreaField('Enter Your evening slots (Eg. 9-10,11-12,mon,tue,wed...)',validators=[DataRequired()])
+    night_slots = TextAreaField('Enter Your night slots (Eg. 9-10,11-12,mon,tue,wed...)',validators=[DataRequired()])
     days = SelectMultipleField('Working Days:', choices=[('mon', 'Monday'), ('tue', 'Tuesday'), ('wed', 'Wednesday'), ('thurs', 'Thursday'), ('fri', 'Friday'), ('sat', 'Saturday'), ('sun', 'Sunday')],validators=[DataRequired()])
     submit = SubmitField('Submit')
 

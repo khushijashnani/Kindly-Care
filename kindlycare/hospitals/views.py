@@ -1,8 +1,8 @@
 from flask import render_template,url_for,redirect,request,Blueprint,abort,flash
-from kindlycare.models import Hospitals,Doctors,Feedback
+from kindlycare.models import Hospitals,Doctors,Feedback,Slots
 from kindlycare import db,app
 from kindlycare.hospitals.forms  import HospitalForm,FeedBackForm
-from flask_login import login_required
+from flask_login import login_required,current_user
 
 
 hospitals = Blueprint('hospitals',__name__)
@@ -12,13 +12,17 @@ def hosp(hosp_id):
     hosp = Hospitals.query.get_or_404(hosp_id)
     feed = Feedback.query.filter_by(hosp_id=hosp_id).all()
     form = FeedBackForm()
+    #print(hosp.name)
+    slots = Slots.query.filter_by(hospital_name=hosp.name).all()
+
     if form.validate_on_submit():
         feedback = Feedback(user_name=form.user_name.data,content=form.content.data,rating=form.rating.data,hosp_id=hosp_id)
         db.session.add(feedback)
         db.session.commit()
         flash('Thank you for your feedback!','success')
         return redirect(url_for('hospitals.hosp',hosp_id=hosp_id))
-    return render_template('hospital.html',hosp=hosp,form=form,feed=feed)
+    return render_template('hospital.html',hosp=hosp,form=form,feed=feed,slots=slots)
+    
 
 @login_required
 @hospitals.route('/hospital_form',methods=['GET','POST'])
@@ -33,16 +37,21 @@ def register_hospital():
         
         doctor_name = form.doctor_name.data
         doctor = Doctors.query.filter_by(name=doctor_name).first()
+        print(doctor.id)
 
         if form.name.data in hospital_names:
             hosp = Hospitals.query.filter_by(name=form.name.data).first()
             hosp.doctors_name.append(doctor)
+            slot = Slots(doc_id=doctor.id,morning_slots=form.morning_slots.data,afternoon_slots=form.afternoon_slots.data,evening_slots=form.evening_slots.data,night_slots=form.night_slots.data,hospital_name=form.name.data)
+            db.session.add(slot)
             db.session.commit()
 
             return redirect(url_for('core.home'))
 
         hosp = Hospitals(name=form.name.data,speciality=form.speciality.data,description=form.description.data,contact_no=form.contact_no.data,address=form.address.data,start_time=form.start_time.data,end_time=form.end_time.data,days=form.days.data)
         hosp.doctors_name.append(doctor)
+        slot = Slots(doc_id=doctor.id,morning_slots=form.morning_slots.data,afternoon_slots=form.afternoon_slots.data,evening_slots=form.evening_slots.data,night_slots=form.night_slots.data,hospital_name=form.name.data)
+        db.session.add(slot)
         db.session.add(hosp)
         db.session.commit()
         
