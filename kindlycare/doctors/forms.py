@@ -1,4 +1,4 @@
-from wtforms import StringField, SubmitField, PasswordField, TextAreaField, IntegerField
+from wtforms import StringField, SubmitField, PasswordField, TextAreaField, IntegerField, SelectField
 from flask_wtf import FlaskForm
 from wtforms.validators import DataRequired, Email, EqualTo
 from wtforms import ValidationError
@@ -9,7 +9,6 @@ from kindlycare.models import Doctors
 class DoctorsForms(FlaskForm):
     name = StringField('Name',validators = [DataRequired()])
     email = StringField('Email',validators = [DataRequired(),Email()])
-    visiting_hours = StringField('Visiting Hours',validators = [DataRequired()])
     qualification = StringField('Enter Your Qualification',validators = [DataRequired()])  
     specialization = StringField('Enter Your Specialization',validators = [DataRequired()]) 
     consultation_fees = IntegerField('Consultation Fees',validators = [DataRequired()])
@@ -17,6 +16,9 @@ class DoctorsForms(FlaskForm):
     contact_number = StringField('Enter Your Contact Number',validators = [DataRequired()])
     description = TextAreaField('Enter a description of your',validators = [DataRequired()])
     password = PasswordField('Password',validators = [DataRequired()])
+    address_line_1 = TextAreaField('Address_line_1',validators = [DataRequired()])
+    address_line_2 = TextAreaField('Address_line_2',validators = [DataRequired()])
+    address_line_3 = TextAreaField('Address_line_3',validators = [DataRequired()])
     submit = SubmitField('Register')
 
     def check_email(self, field):
@@ -27,3 +29,24 @@ class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Log In')
+
+
+class UpdateForm(FlaskForm):
+    email = StringField('Email')#,validators=[Email()])
+    picture = FileField('Update Profile Picture')
+    qualification = StringField('Qualification')  
+    specialization = StringField('Specialization') 
+    consultation_fees = IntegerField('Consultation Fees')
+    experience = TextAreaField('Experience')
+    description = TextAreaField('Description')
+    address_line_1 = TextAreaField('Address line 1')
+    address_line_2 = TextAreaField('Address line 2')
+    address_line_3 = TextAreaField('Address line 3')
+    submit = SubmitField('Update')
+
+class ReviewForm(FlaskForm):
+    name = StringField('Your name',validators=[DataRequired()])
+    content = TextAreaField('Your feedback',validators=[DataRequired()])
+    rating = SelectField('Your rating',validators=[DataRequired()],choices=[('1','1'),('2','2'),('3','3'),('4','4'),('5','5')])
+    submit = SubmitField('Submit')
+

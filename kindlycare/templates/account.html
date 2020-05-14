@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="jumbotron">
+    <div align='center'>
+        <h2>Welcome to the page for <b>{{current_user.name}}</b></h2>
+        <br>
+        <img align ='center' src="{{url_for('static',filename='profile_pics/'+current_user.profile_image)}}" alt="" style="height: 400px; width: 270px;">
+    </div>
+</div>
+
+ <div class="container">
+    <form method="POST" action="" enctype="multipart/form-data">
+
+        <div class="form-group">
+            {{form.picture.label(class="form-group")}}
+            {{form.picture(class="form-control")}}
+        </div>
+        
+        <div class="form-group">
+            {{form.email.label(class="form-group")}}
+            {{form.email(class="form-control")}}  
+        </div>
+        <div class="form-group">
+            {{form.address_line_1.label(class="form-group")}}
+            {{form.address_line_1(class="form-control")}}
+        </div>
+        <div class="form-group">
+            {{form.address_line_2.label(class="form-group")}}
+            {{form.address_line_2(class="form-control")}}  
+        </div>
+        <div class="form-group">
+            {{form.address_line_3.label(class="form-group")}}
+            {{form.address_line_3(class="form-control")}}  
+        </div>
+        <div class="form-group">
+            {{form.qualification.label(class="form-group")}}
+            {{form.qualification(class="form-control")}}  
+        </div>
+        <div class="form-group">
+            {{form.specialization.label(class="form-group")}}
+            {{form.specialization(class="form-control")}}  
+        </div>
+        <div class="form-group">
+            {{form.consultation_fees.label(class="form-group")}}
+            {{form.consultation_fees(class="form-control")}}  
+        </div>
+        <div class="form-group">
+            {{form.experience.label(class="form-group")}}
+            {{form.experience(class="form-control")}}  
+        </div>
+        <div class="form-group">
+            {{form.description.label(class="form-group")}}
+            {{form.description(class="form-control")}}  
+        </div>
+        <div class="form-group">
+            {{form.submit(class='btn btn-outline-success')}}
+            <a href="{{url_for('hospitals.register_hospital')}}" class="btn btn-primary" style="margin-left: 20px;">Add hospital</a>
+        </div>
+    </form>
+</div> 
+{% endblock %}

@@ -1,13 +1,17 @@
 from flask import render_template, request, Blueprint
 from flask_login import current_user
 from kindlycare import db
-from kindlycare.models import Doctors,Hospitals,Feedback
+from kindlycare.models import Doctors,Hospitals,Feedback,Slots
 
 core = Blueprint('core', __name__)
 
 
 @core.route('/')
 def home():
+    #print(current_user.slots.morning_slots)
+    '''slot = Slots.query.filter_by(doc_id=current_user.id).all()
+    for i in slot:
+        print(i.morning_slots)'''
     return render_template('index.html')
 
 @core.route('/docs')
@@ -19,6 +23,11 @@ def docs():
 def hosps():
     hosp = Hospitals.query.all()
     return render_template('home.html',hosp=hosp)
+
+@core.route('/doctors')
+def doctors():
+    return render_template('doctors.html')
+
 
 @core.route('/search')
 def search():
