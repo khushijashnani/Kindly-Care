@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField,SubmitField,IntegerField,IntegerField,TextAreaField,TextField,TimeField,SelectMultipleField
+from wtforms import StringField,SubmitField,IntegerField,IntegerField,TextAreaField,TextField,TimeField,SelectMultipleField,SelectField
 from wtforms.validators import DataRequired
 
 class HospitalForm(FlaskForm):
@@ -13,3 +13,9 @@ class HospitalForm(FlaskForm):
     end_time = TimeField('Closing time:',validators=[DataRequired()])
     days = SelectMultipleField('Working Days:', choices=[('mon', 'Monday'), ('tue', 'Tuesday'), ('wed', 'Wednesday'), ('thurs', 'Thursday'), ('fri', 'Friday'), ('sat', 'Saturday'), ('sun', 'Sunday')],validators=[DataRequired()])
     submit = SubmitField('Submit')
+
+class FeedBackForm(FlaskForm):
+    user_name = StringField('Your name',validators=[DataRequired()])
+    content = TextAreaField('Your feedback',validators=[DataRequired()])
+    rating = SelectField('Your rating',validators=[DataRequired()],choices=[('1','1'),('2','2'),('3','3'),('4','4'),('5','5')])
+    submit = SubmitField('Submit') 

@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 8fa37c30fc57
+Revision ID: ffee42902a4b
 Revises: 
-Create Date: 2020-05-08 11:58:44.576128
+Create Date: 2020-05-13 09:25:05.290879
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '8fa37c30fc57'
+revision = 'ffee42902a4b'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -36,20 +36,22 @@ def upgrade():
     op.create_index(op.f('ix_doctors_email'), 'doctors', ['email'], unique=True)
     op.create_table('hospital',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=100), nullable=True),
-    sa.Column('speciality', sa.String(length=50), nullable=True),
-    sa.Column('description', sa.Text(), nullable=True),
-    sa.Column('contact_no', sa.Integer(), nullable=True),
-    sa.Column('address', sa.Text(), nullable=True),
-    sa.Column('start_time', sa.Time(), nullable=True),
-    sa.Column('end_time', sa.Time(), nullable=True),
-    sa.Column('days', sa.PickleType(), nullable=True),
+    sa.Column('name', sa.String(length=100), nullable=False),
+    sa.Column('speciality', sa.String(length=50), nullable=False),
+    sa.Column('description', sa.Text(), nullable=False),
+    sa.Column('contact_no', sa.Integer(), nullable=False),
+    sa.Column('address', sa.Text(), nullable=False),
+    sa.Column('start_time', sa.Time(), nullable=False),
+    sa.Column('end_time', sa.Time(), nullable=False),
+    sa.Column('days', sa.PickleType(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('feedback',
     sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('user_name', sa.String(length=30), nullable=False),
+    sa.Column('content', sa.Text(), nullable=False),
+    sa.Column('rating', sa.Integer(), nullable=False),
     sa.Column('hosp_id', sa.Integer(), nullable=True),
-    sa.Column('desc', sa.Text(), nullable=True),
     sa.ForeignKeyConstraint(['hosp_id'], ['hospital.id'], ),
     sa.PrimaryKeyConstraint('id')
     )

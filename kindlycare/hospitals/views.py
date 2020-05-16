@@ -1,15 +1,24 @@
-from flask import render_template,url_for,redirect,request,Blueprint,abort
-from kindlycare.models import Hospitals,Doctors
+from flask import render_template,url_for,redirect,request,Blueprint,abort,flash
+from kindlycare.models import Hospitals,Doctors,Feedback
 from kindlycare import db,app
-from kindlycare.hospitals.forms  import HospitalForm
+from kindlycare.hospitals.forms  import HospitalForm,FeedBackForm
 from flask_login import login_required
 
 
 hospitals = Blueprint('hospitals',__name__)
 
-@hospitals.route('/')
-def home():
-    return render_template('home.html')
+@hospitals.route('/hosp<int:hosp_id>',methods=['GET','POST'])
+def hosp(hosp_id):
+    hosp = Hospitals.query.get_or_404(hosp_id)
+    feed = Feedback.query.filter_by(hosp_id=hosp_id).all()
+    form = FeedBackForm()
+    if form.validate_on_submit():
+        feedback = Feedback(user_name=form.user_name.data,content=form.content.data,rating=form.rating.data,hosp_id=hosp_id)
+        db.session.add(feedback)
+        db.session.commit()
+        flash('Thank you for your feedback!','success')
+        return redirect(url_for('hospitals.hosp',hosp_id=hosp_id))
+    return render_template('hospital.html',hosp=hosp,form=form,feed=feed)
 
 @login_required
 @hospitals.route('/hospital_form',methods=['GET','POST'])

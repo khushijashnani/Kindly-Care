@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<div>
+<!-- <div>
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
@@ -21,8 +21,8 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
         </a>
-    </div>
-    <!-- <div class="mrow">
+    </div> -->
+<!-- <div class="mrow">
 
         <div class="mcard">
             <img src="http://placehold.it/200x150">
@@ -73,7 +73,7 @@
 
         </div>
     </div> -->
-    <div class="view">
+<!-- <div class="view">
         <div class="sub">
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet inventore praesentium optio corporis totam.
                 Quibusdam nulla asperiores ratione vero necessitatibus magni ex nam iste voluptate voluptatem tenetur,
@@ -103,7 +103,43 @@
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet inventore praesentium optio corporis totam.
                 Quibusdam nulla asperiores ratione vero necessitatibus magni ex nam iste voluptate voluptatem tenetur,
                 consectetur repellat libero!</p>
+        </div>
+    </div> -->
+<div class="container">
+    {% if docs %}
+    {% for doc in docs %}
+    <h3>{{doc.name}}</h3>
+    {% for h in doc.hospital %}
+    <p>Hospitals: {{h.name}}</p>
+    {% endfor %}
+    {% endfor %}
+    {% endif %}
+    {% if hosp %}
+    {% for h in hosp %}
+    <div class="card">
+        <div class="card-body ">
+            <div class="float-left d-inline-block">
+                <a class="card-title text-primary" href="{{url_for('hospitals.hosp',hosp_id=h.id)}}">
+                    <h4>{{h.name | title }}</h4>
+                </a>
+                <p class="card-text">{{ h.speciality }}</p>
+                <p class="card-text text-muted">{{ h.doctor | length }}
+                    {% if h.doctor | length ==1 %}Doctor{% else %}Doctors{% endif %}</p>
+            </div>
+            <div class="float-right d-inline-block">
+                {% for d in h.days %}
+                {% if loop.first or loop.last %}
+                {{ d }}
+                {% endif %}
+                {% endfor %}
+                <p>{{h.start_time }}-{{h.end_time }}</p>
+                <p>{{h.address}}</p>
+                <a class="text-primary" href="{{url_for('hospitals.hosp',hosp_id=h.id)}}">View Profile</a>
+                <a href="#" class="btn btn-primary">Call Now</a>
+            </div>
         </div>
     </div>
+    {% endfor %}
+    {% endif %}
 </div>
 {% endblock %}
