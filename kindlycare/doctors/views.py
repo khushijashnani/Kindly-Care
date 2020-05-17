@@ -74,7 +74,7 @@ def update_doctor():
 			user_name = current_user.name
 			pic = add_profile_pic(form.picture.data,user_name)
 			current_user.profile_image = pic
-		
+
 		current_user.email = form.email.data
 		current_user.experience = form.experience.data
 		current_user.qualification = form.qualification.data
