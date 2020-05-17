@@ -6,6 +6,9 @@ from kindlycare.models import Doctors, Hospitals, Appointments
 from flask import Blueprint, render_template, url_for, request, redirect, flash
 from flask_login import login_user, current_user, logout_user, login_required
 from kindlycare import db
+from datetime import date,datetime
+import calendar
+from random import randint
 
 
 doctors = Blueprint('doctors', __name__)
@@ -133,6 +136,9 @@ def viewDoctor(doctor_id):
     address = doc.address_line_1+', '+doc.address_line_2+', '+doc.address_line_3
     reviews = Reviews.query.filter_by(doctor_id=doc.id).all()
     slots = Slots.query.filter_by(doc_id=doctor_id).all()
+    current_date = str(datetime.now().time())
+    my_date = date.today()
+    current_day = calendar.day_name[my_date.weekday()]
     for slot in slots:
         print(slot.hospital_name)
     form = ReviewForm()
@@ -144,4 +150,4 @@ def viewDoctor(doctor_id):
         db.session.commit()
         flash('Thank you for your feedback!', 'success')
         return redirect(url_for('doctors.viewDoctor', doctor_id=doctor_id))
-    return render_template('doctors.html', doc=doc, address=address, reviews=reviews, form=form, slots=slots)
+    return render_template('doctors.html', doc=doc, address=address, reviews=reviews, form=form, slots=slots, current_date=current_date, current_day=current_day)

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+<br>
 <div class="jumbotron">
     <div class="card container bg-white p-3">
         <div class="row no-gutters">
@@ -58,7 +59,8 @@
                     </div>
                     <div class="col-md-4">
                         <div class="card-body">
-
+                            
+                            <p>{{current_day[0:-3]}}</p>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -116,24 +118,35 @@
                                 {% set m_slot = slot.morning_slots.split(',') %}
                                 {% set start_time = m_slot[0].split("-")[0] %}
                                 {% set end_time = m_slot[0].split("-")[1] %}
+                                {% set hours = current_date.split(':')[0] | int %}
+                                {% set minutes = current_date.split(':')[1] | int %}
+                                {% set start = start_time | int %}
+                                {% set end = end_time | int %}
+                                {% set day = current_day[0:-3] | lower %}
                                 <div class="card col-md-3">
                                     <h6 class="card-header"><b>Morning Slots</b></h6>
                                     <div class="card-body">
+                                        
                                         {% if slot.m_capacity < (end_time.split(":")[0]|int - start_time.split(":")[0]|int )*2 %}
-                                        <p class="card-text text-muted"><b>Timings : </b>
-                                            {{start_time}}-{{end_time}}
-                                        </p>
-                                        <p class="card-text">Available on :
-                                            {% for m_slot in slot.morning_slots.split(',') %}
-                                            {% if '-' not in m_slot %}
-                                            {{m_slot | title}},
+                                            <p class="card-text text-muted"><b>Timings : </b>
+                                                {{start_time}}-{{end_time}}
+                                            </p>
+                                            <p class="card-text">Available on :
+                                                {% for m_slot in slot.morning_slots.split(',') %}
+                                                {% if '-' not in m_slot %}
+                                                {{m_slot | title}},
+                                                {% endif %}
+                                                {% endfor %}
+                                            </p>
+                                            {% if hours >= start and hours < end and 60 - minutes > 30 %}
+                                                <a href="{{url_for('hospitals.appoint',slot_id=slot.id,c='morning')}}" class="stretched-link"></a>
+                                            {% elif day not in slot.morning_slots.split(',') %}
+                                                <p><b>Slot is not Available today</b></p>
+                                            {% else %}
+                                                <p><b>Slot not Available</b></p>
                                             {% endif %}
-                                            {% endfor %}
-                                        </p>
-                                        <a href="{{url_for('hospitals.appoint',slot_id=slot.id,c='morning')}}"
-                                            class="stretched-link"></a>
                                         {% else %}
-                                        <p>Slot is full</p>
+                                            <p>Slot is full</p>
                                         {% endif %}
                                     </div>
                                 </div>
@@ -143,24 +156,34 @@
                                 {% set a_slot = slot.afternoon_slots.split(',') %}
                                 {% set start_time = a_slot[0].split("-")[0] %}
                                 {% set end_time = a_slot[0].split("-")[1] %}
+                                {% set hours = current_date.split(':')[0] | int %}
+                                {% set minutes = current_date.split(':')[1] | int %}
+                                {% set start = start_time | int %}
+                                {% set end = end_time | int %}
+                                {% set day = current_day[0:-3] | lower %}
                                 <div class="card col-md-3">
                                     <h6 class="card-header"><b>Afternoon Slots</b></h6>
                                     <div class="card-body">
                                         {% if slot.a_capacity < (end_time.split(":")[0]|int - start_time.split(":")[0]|int )*2 %}
-                                        <p class="card-text text-muted"><b>Timings : </b>
-                                            {{start_time}}-{{end_time}}
-                                        </p>
-                                        <p class="card-text">Available on :
-                                            {% for a_slot in slot.afternoon_slots.split(',') %}
-                                            {% if '-' not in a_slot %}
-                                            {{a_slot | title}},
+                                            <p class="card-text text-muted"><b>Timings : </b>
+                                                {{start_time}}-{{end_time}}
+                                            </p>
+                                            <p class="card-text">Available on :
+                                                {% for a_slot in slot.afternoon_slots.split(',') %}
+                                                {% if '-' not in a_slot %}
+                                                {{a_slot | title}},
+                                                {% endif %}
+                                                {% endfor %}
+                                            </p>
+                                            {% if hours >= start and hours < end and 60 - minutes > 30 %}
+                                                <a href="{{url_for('hospitals.appoint',slot_id=slot.id,c='afternoon')}}" class="stretched-link"></a>
+                                            {% elif day not in slot.afternoon_slots.split(',') %}
+                                                <p><b>Slot is not Available today</b></p>
+                                            {% else %}
+                                                <p><b>Slot not Available at this time</b></p>
                                             {% endif %}
-                                            {% endfor %}
-                                        </p>
-                                        <a href="{{url_for('hospitals.appoint',slot_id=slot.id,c='afternoon')}}"
-                                            class="stretched-link"></a>
                                         {% else %}
-                                        <p>Slot is full</p>
+                                            <p>Slot is full</p>
                                         {% endif %}
                                     </div>
                                 </div>
@@ -170,24 +193,34 @@
                                 {% set e_slot = slot.evening_slots.split(',') %}
                                 {% set start_time = e_slot[0].split("-")[0] %}
                                 {% set end_time = e_slot[0].split("-")[1] %}
+                                {% set hours = current_date.split(':')[0] | int %}
+                                {% set minutes = current_date.split(':')[1] | int %}
+                                {% set start = start_time | int %}
+                                {% set end = end_time | int %}
+                                {% set day = current_day[0:-3] | lower %}
                                 <div class="card col-md-3">
                                     <h6 class="card-header"><b>Evening Slots</b></h6>
                                     <div class="card-body">
                                         {% if slot.e_capacity < (end_time.split(":")[0]|int - start_time.split(":")[0]|int )*2 %}
-                                        <p class="card-text text-muted"><b>Timings : </b>
-                                            {{start_time}}-{{end_time}}
-                                        </p>
-                                        <p class="card-text">Available on :
-                                            {% for e_slot in slot.evening_slots.split(',') %}
-                                            {% if '-' not in e_slot %}
-                                            {{e_slot | title}},
+                                            <p class="card-text text-muted"><b>Timings : </b>
+                                                {{start_time}}-{{end_time}}
+                                            </p>
+                                            <p class="card-text">Available on :
+                                                {% for e_slot in slot.evening_slots.split(',') %}
+                                                {% if '-' not in e_slot %}
+                                                {{e_slot | title}},
+                                                {% endif %}
+                                                {% endfor %}
+                                            </p>
+                                            {% if hours >= start and hours < end and 60 - minutes > 30 %}
+                                                <a href="{{url_for('hospitals.appoint',slot_id=slot.id,c='evening')}}" class="stretched-link"></a>
+                                            {% elif day not in slot.evening_slots.split(',') %}
+                                                <p><b>Slot is not Available today</b></p>
+                                            {% else %}
+                                                <p><b>Slot not Available</b></p>
                                             {% endif %}
-                                            {% endfor %}
-                                        </p>
-                                        <a href="{{url_for('hospitals.appoint',slot_id=slot.id,c='evening')}}"
-                                            class="stretched-link"></a>
                                         {% else %}
-                                        <p>Slot is full</p>
+                                            <p>Slot is full</p>
                                         {% endif %}
                                     </div>
                                 </div>
@@ -197,22 +230,32 @@
                                 {% set n_slot = slot.night_slots.split(',') %}
                                 {% set start_time = n_slot[0].split("-")[0] %}
                                 {% set end_time = n_slot[0].split("-")[1] %}
+                                {% set hours = current_date.split(':')[0] | int %}
+                                {% set minutes = current_date.split(':')[1] | int %}
+                                {% set start = start_time | int %}
+                                {% set end = end_time | int %}
+                                {% set day = current_day[0:-3] | lower %}
                                 <div class="card col-md-3">
                                     <h6 class="card-header"><b>Night Slots</b></h6>
                                     <div class="card-body">
                                         {% if slot.n_capacity < (end_time.split(":")[0]|int - start_time.split(":")[0]|int )*2 %}
-                                        <p class="card-text text-muted"><b>Timings : </b>
-                                            {{start_time}}-{{end_time}}
-                                        </p>
-                                        <p class="card-text">Available on :
-                                            {% for n_slot in slot.night_slots.split(',') %}
-                                            {% if '-' not in n_slot %}
-                                            {{n_slot | title}},
+                                            <p class="card-text text-muted"><b>Timings : </b>
+                                                {{start_time}}-{{end_time}}
+                                            </p>
+                                            <p class="card-text">Available on :
+                                                {% for n_slot in slot.night_slots.split(',') %}
+                                                {% if '-' not in n_slot %}
+                                                {{n_slot | title}},
+                                                {% endif %}
+                                                {% endfor %}
+                                            </p>
+                                            {% if hours >= start and hours < end and 60 - minutes > 30 %}
+                                                <a href="{{url_for('hospitals.appoint',slot_id=slot.id,c='night')}}" class="stretched-link"></a>
+                                            {% elif day not in slot.night_slots.split(',') %}
+                                                <p><b>Slot is not Available today</b></p>
+                                            {% else %}
+                                                <p><b>Slot not Available</b></p>
                                             {% endif %}
-                                            {% endfor %}
-                                        </p>
-                                        <a href="{{url_for('hospitals.appoint',slot_id=slot.id,c='night')}}"
-                                            class="stretched-link"></a>
                                         {% else %}
                                         <p>Slot is full</p>
                                         {% endif %}

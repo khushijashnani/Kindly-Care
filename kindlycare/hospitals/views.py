@@ -4,6 +4,9 @@ from kindlycare import db,app,mail
 from flask_mail import Message
 from kindlycare.hospitals.forms  import HospitalForm,FeedBackForm,AppointmentForm
 from flask_login import login_required,current_user
+from random import randint
+from datetime import datetime,date
+import calendar
 
 
 hospitals = Blueprint('hospitals',__name__)
@@ -28,20 +31,23 @@ def hosp(hosp_id):
 def appoint(slot_id,c):
     slot = Slots.query.filter_by(id=slot_id).first()
     form = AppointmentForm()
+    my_date = date.today()
+    current_day = calendar.day_name[my_date.weekday()]
+    form.day.data = current_day
     if c == 'morning' :
         form.slot.choices = [(x,x) for x in slot.morning_slots.split(",") if "-" in x]
-        form.day.choices = [(x,x) for x in slot.morning_slots.split(",") if "-" not in x]
+        #form.day.choices = [(x,x) for x in slot.morning_slots.split(",") if "-" not in x]
     if c == 'afternoon' :
         form.slot.choices = [(x,x) for x in slot.afternoon_slots.split(",") if "-" in x]
-        form.day.choices = [(x,x) for x in slot.afternoon_slots.split(",") if "-" not in x ]
+        #form.day.choices = [(x,x) for x in slot.afternoon_slots.split(",") if "-" not in x ]
     if c == 'evening' :
         form.slot.choices = [(x,x) for x in slot.evening_slots.split(",") if "-" in x]
-        form.day.choices = [(x,x) for x in slot.evening_slots.split(",") if "-" not in x]
+        #form.day.choices = [(x,x) for x in slot.evening_slots.split(",") if "-" not in x]
     if c == 'night' : 
         form.slot.choices = [(x,x) for x in slot.night_slots.split(",") if "-" in x]
-        form.day.choices = [(x,x) for x in slot.night_slots.split(",") if "-" not in x]
+        #form.day.choices = [(x,x) for x in slot.night_slots.split(",") if "-" not in x]
     if form.validate_on_submit():
-        appointment = Appointments(slot=form.slot.data,user_name=form.user_name.data,user_contact=form.user_contact.data,day=form.day.data,user_email=form.user_email.data,hosp_name=slot.hospital_name,doc_id=slot.doc_id)
+        appointment = Appointments(slot=form.slot.data,user_name=form.user_name.data,user_contact=form.user_contact.data,day=form.day.data,user_email=form.user_email.data,hosp_name=slot.hospital_name,doc_id=slot.doc_id,appointment_id=randint(100000000,999999999))
         if c == 'morning' :
             slot.m_capacity += 1
         if c == 'afternoon' :
@@ -59,7 +65,7 @@ def appoint(slot_id,c):
         print(appointment.day)
         print(appointment.doc_id)
         print(appointment.hosp_name)
-        msg = Message(subject='Appointment Confirmation from Kindly-Care',body='Your appointment at '+appointment.hosp_name+', is confirmed in the slot '+appointment.slot+'on'+appointment.day+'. Thank you.',recipients=[appointment.user_email])
+        msg = Message(subject='Appointment Confirmation from Kindly-Care',body='Your appointment at '+appointment.hosp_name+', is confirmed in the slot '+appointment.slot+' on '+appointment.day+'.\nYour Appointment ID is '+ str(appointment.appointment_id) + '\nThank you.',recipients=[appointment.user_email])
         mail.send(msg)
         flash('Your appointment has been booked! Please check your mail.','success')
         return redirect(url_for('doctors.viewDoctor',doctor_id=slot.doc_id))

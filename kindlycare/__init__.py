@@ -14,9 +14,9 @@ app.config['DEBUG'] = True
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = ''
-app.config['MAIL_PASSWORD'] = ''
-app.config['MAIL_DEFAULT_SENDER'] = ''
+app.config['MAIL_USERNAME'] = 'kay1872k@gmail.com'
+app.config['MAIL_PASSWORD'] = 'KayJashnani18k'
+app.config['MAIL_DEFAULT_SENDER'] = 'kay1872k@gmail.com'
 app.config['MAIL_ASCII_ATTACHMENTS'] = False
 app.config['MAIL_MAX_EMAILS'] = None
 

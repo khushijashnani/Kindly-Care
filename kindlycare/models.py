@@ -109,3 +109,4 @@ class Appointments(db.Model):
     user_email = db.Column(db.String(64))
     doc_id = db.Column(db.Integer,db.ForeignKey('doctors.id'))
     hosp_name = db.Column(db.String(20))
+    appointment_id = db.Column(db.Integer)

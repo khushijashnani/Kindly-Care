@@ -29,6 +29,7 @@ class AppointmentForm(FlaskForm):
     user_name = StringField('Your name:',validators=[DataRequired()])
     user_email = StringField('Enter your Email ID: ',validators=[DataRequired()])
     slot = SelectField('Available Timings:',coerce=str,validators=[DataRequired()])
-    day = SelectField('Available Days:',coerce=str,validators=[DataRequired()])
+    #day = SelectField('Available Days:',coerce=str,validators=[DataRequired()])
+    day = StringField('Day Available')
     user_contact = IntegerField('Enter your contact details:',validators=[DataRequired()])
     submit = SubmitField("Submit")

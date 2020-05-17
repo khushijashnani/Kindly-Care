@@ -1,6 +1,6 @@
 from wtforms import StringField, SubmitField, PasswordField, TextAreaField, IntegerField, SelectField
 from flask_wtf import FlaskForm
-from wtforms_sqlalchemy.fields import QuerySelectField
+# from wtforms_sqlalchemy.fields import QuerySelectField
 from wtforms.validators import DataRequired, Email, EqualTo
 from wtforms import ValidationError
 from flask_wtf.file import FileField, FileAllowed
@@ -48,9 +48,9 @@ def filter_query():
     return Doctors.query
 
 
-class FilterForm(FlaskForm):
-    options = QuerySelectField(
-        query_factory=filter_query, allow_blank=True, get_label='specialization')
+# class FilterForm(FlaskForm):
+#     options = QuerySelectField(
+#         query_factory=filter_query, allow_blank=True, get_label='specialization')
 
 
 class UpdateForm(FlaskForm):
