@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="jumbotron">
+    <form method="POST">
+        {{form.hidden_tag()}}
+        {{form.slot.label}}<br>
+        {{form.slot(class="form-control")}}<br>
+        {{form.day.label}}<br>
+        {{form.day(class="form-control")}}<br>
+        {{form.user_email.label}}<br>
+        {{form.user_email(class="form-control")}}<br>
+        {{form.submit(class="form-control")}}
+    </form>
+</div>
+{% endblock %}

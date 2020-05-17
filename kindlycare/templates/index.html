@@ -24,33 +24,20 @@
             <button class="btn btn-block btn-primary">Apply</button>
 
         </div>
-    </li> -->
-    <form method="POST" action="/">
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Filter
-            </button>
-            <div class="dropdown-menu">
+    </li> --><br>
 
-                <input class="dropdown-item" type="radio" name="options" id="option1" value="option1">Dentist
-                <input class="dropdown-item" type="radio" name="options" id="option2" value="option2">Pediatrition
-                <input class="dropdown-item" type="radio" name="options" id="option3" value="option3">Physician<br>
-                <button type="submit" class="btn btn-primary">Apply</button>
-            </div>
-        </div>
-    </form>
+    <br>
 
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="tree.jpeg" class="d-block w-100" alt="tree">
+                <img src="{{url_for('static',filename='tree.jpeg')}}" class="d-block w-100" alt="tree">
             </div>
             <div class="carousel-item">
-                <img src="kindlycare/static/tree2.jpg" class="d-block w-100" alt="tree2">
+                <img src="{{url_for('static',filename='tree2.jpeg')}}" class="d-block w-100 h-100" alt="tree2">
             </div>
             <div class="carousel-item">
-                <img src="tree3.jpg" class="d-block w-100" alt="tree3">
+                <img src="{{url_for('static',filename='tree3.jpeg')}}" class="d-block w-100" alt="tree3">
             </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -61,63 +48,117 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
         </a>
-    </div>
-
+    </div><br>
+    <h3>Doctor Specializations</h3>
+    <div style="background-image: linear-gradient(to right,#8E2DE2,#4A00E0);width: 100%;height: 4px;"></div><br>
     <div class="card-columns">
-        <div class="card">
-            <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card text-white bg-primary">
+
             <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                    content. This content is a little bit longer.</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                <h5 class="card-title">Dentist</h5>
+                <hr>
+                <p class="card-text">A dentist, also known as a dental surgeon, is a surgeon who specializes in
+                    dentistry, the diagnosis, prevention, and treatment of diseases and conditions of the oral cavity.
+                    The dentist's supporting team aids in providing oral health services. The dental team includes
+                    dental assistants, dental hygienists, dental technicians, and sometimes dental therapists.</p>
+
             </div>
         </div>
-        <div class="card">
-            <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card text-white bg-secondary">
+
             <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                <h5 class="card-title">Pediatrition</h5>
+                <hr>
+                <p class="card-text">Pediatricians are doctors who manage the health of your child, including physical,
+                    behavior, and mental health issues. They're trained to diagnose and treat childhood illnesses, from
+                    minor health problems to serious diseases.</p>
+
             </div>
         </div>
-        <div class="card">
-            <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card text-white bg-success">
+
             <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-                    content. This card has even longer content than the first to show that equal height action.</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                <h5 class="card-title">Neurologist</h5>
+                <hr>
+                <p class="card-text">Neurology is the branch of medicine concerned with the study and treatment of
+                    disorders of the nervous system. The nervous system is a complex, sophisticated system that
+                    regulates and coordinates body activities. It has two major divisions:
+
+                    Central nervous system: the brain and spinal cord
+                    Peripheral nervous system: all other neural elements, such as eyes, ears, skin, and other "sensory
+                    receptors"</p>
             </div>
         </div>
-        <div class="card">
-            <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card text-white bg-danger">
+
             <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-                    content. This card has even longer content than the first to show that equal height action.</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                <h5 class="card-title">Heart Surgeon</h5>
+                <hr>
+                <p class="card-text">A cardiothoracic surgeon is a medical doctor who specializes in surgical procedures
+                    of the heart, lungs, esophagus, and other organs in the chest. This includes surgeons who can be
+                    called cardiac surgeons, cardiovascular surgeons, general thoracic surgeons, and congenital heart
+                    surgeons.</p>
+
             </div>
         </div>
-        <div class="card">
-            <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card text-white bg-warning">
+
             <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-                    content. This card has even longer content than the first to show that equal height action.</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                <h5 class="card-title">General Physician</h5>
+                <hr>
+                <p class="card-text">General Physicians are highly trained specialists who provide a range of
+                    non-surgical health care to adult patients. They care for difficult, serious or unusual medical
+                    problems and continue to see the patient until these problems have resolved or stabilised.</p>
+
             </div>
         </div>
-        <div class="card">
-            <img class="card-img-top" src="..." alt="Card image cap">
+        <div class="card text-white bg-info">
+
             <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-                    content. This card has even longer content than the first to show that equal height action.</p>
-                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                <h5 class="card-title">Homeopath</h5>
+                <hr>
+                <p class="card-text">Homeopathy, or Homeopathic Medicine, is the practice of medicine that embraces a
+                    holistic, natural approach to the treatment of the sick. Homeopathy is holistic because it treats
+                    the person as a whole, rather than focusing on a diseased part or a labeled sickness.</p>
+
             </div>
         </div>
     </div>
+    <h3>Top Doctors</h3>
+    <div style="background-image: linear-gradient(to right,#8E2DE2,#4A00E0);width: 100%;height: 4px;"></div>
 
+    {% if docs %}
+    <div class="card-group">
+
+        {%for doc in docs%}
+        <div class="card" style="width: 20rem;">
+            <img class="card-img-top" src="{{url_for('static',filename='profile_pics/'+doc.profile_image)}}"
+                style="width:20rem;" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Dr. {{doc.name}}</h5>
+                <p class="card-text">Specialization: {{doc.specialization}}</p>
+                <p class="card-text">Consultation Fees: {{doc.consultation_fees}}</p>
+
+            </div>
+        </div>
+        {%endfor%}
+
+    </div>
+    {% endif %}
+    <h3>Hospitals</h3>
+    <div style="background-image: linear-gradient(to right,#8E2DE2,#4A00E0);width: 100%;height: 4px;"></div>
+    <br>
+    <div class="card-group">
+        {%for h in hosps%}
+        <div class="card">
+
+            <div class="card-body">
+                <h5 class="card-title">{{h.name}}</h5>
+                <p class="card-text">Specializations: {{h.speciality}}</p>
+
+            </div>
+        </div>
+        {%endfor%}
+    </div>
 </div>
 {% endblock %}

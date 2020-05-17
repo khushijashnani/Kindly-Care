@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="card m-2">
+    <h6 class="card-header"><b>Reviews</b></h6>
+    <div class="card-body">
+        {% if reviews %}
+        {% for review in reviews %}
+        <div class="card m-1">
+            <div class="card-body">
+                <h6 class="card-title"><b>{{review.name}}</b></h6>
+                {% for i in range(review.rating) %}
+                <i class="fas fa-star mb-1" style="color: #f1c40f;"></i>
+                {% endfor %}
+                {% for i in range(5-review.rating) %}
+                <i class="fas fa-star"></i>
+                {% endfor %}
+                <p class="text-muted">{{review.content}}</p>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <h4>No Reviews</h4>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

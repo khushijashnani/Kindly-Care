@@ -30,6 +30,22 @@
                     {{form.contact_no(class="form-control")}}
                 </div>
                 <div class="form-group">
+                    {{form.morning_slots.label(class="form-group")}}
+                    {{form.morning_slots(class="form-control")}}
+                </div>
+                <div class="form-group">
+                    {{form.afternoon_slots.label(class="form-group")}}
+                    {{form.afternoon_slots(class="form-control")}}
+                </div>
+                <div class="form-group">
+                    {{form.evening_slots.label(class="form-group")}}
+                    {{form.evening_slots(class="form-control")}}
+                </div>
+                <div class="form-group">
+                    {{form.night_slots.label(class="form-group")}}
+                    {{form.night_slots(class="form-control")}}
+                </div>
+                <div class="form-group">
                     {{form.start_time.label(class="form-group")}}
                     <input type="time" name='start_time'><br>
                     {{form.end_time.label(class="form-group")}}

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+<br>
 <div class="jumbotron">
     <div class="card container bg-white p-3">       
         <h4 class="text-primary">{{hosp.name | title }}</h4>
@@ -17,6 +18,7 @@
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
               <a class="nav-item nav-link active" id="nav-overview-tab" data-toggle="tab" href="#nav-overview" role="tab" aria-controls="nav-overview" aria-selected="true">Overview</a>
               <a class="nav-item nav-link" id="nav-doctors-tab" data-toggle="tab" href="#nav-docs" role="tab" aria-controls="nav-doctors" aria-selected="false">Doctors</a>
+              <a class="nav-item nav-link" id="nav-slots-tab" data-toggle="tab" href="#nav-slots" role="tab" aria-controls="nav-slots" aria-selected="false">Doctor wise slots</a>
               <a class="nav-item nav-link" id="nav-add-tab" data-toggle="tab" href="#nav-add" role="tab" aria-controls="nav-add" aria-selected="false">Address</a>
               <a class="nav-item nav-link" id="nav-feedbacks-tab" data-toggle="tab" href="#nav-feeds" role="tab" aria-controls="nav-feedbacks" aria-selected="false">Feedbacks</a>
               <a class="nav-item nav-link" id="nav-feed-tab" data-toggle="tab" href="#nav-feed" role="tab" aria-controls="nav-feed" aria-selected="false">Write a feedback?</a>
@@ -53,12 +55,149 @@
             <div class="tab-pane fade" id="nav-docs" role="tabpanel" aria-labelledby="nav-doctors-tab">
                 <div class="card">
                     <h6 class="card-header"><b>Doctors</b></h6>
+                    {% if hosp.doctor %}
+                        {% for doc in hosp.doctor %}
+                            <br>
+                            <div class="card mb-3" style="max-width: 540px;"> 
+                                <div class="row no-gutters">
+                                <div class="col-md-4">
+                                    <img src="{{url_for('static',filename='profile_pics/'+doc.profile_image)}}" class="card-img" alt="...">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-primary">Dr. {{doc.name}}</h5>
+                                        <p class="card-text">Qualification : {{doc.qualification}}</p>
+                                        <p class="card-text">Specialization : {{doc.specialization}}</p>
+                                        <p class="card-text">₹{{doc.consultation_fees}} per visit</p>
+                                        <a href="{{url_for('doctors.viewDoctor',doctor_id=doc.id)}}" class="btn btn-primary">View Profile</a>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>  
+            </div>
+            <div class="tab-pane fade" id="nav-slots" role="tabpanel" aria-labelledby="nav-slots-tab">
+                <div class="card">
+                    <h6 class="card-header"><b>Slots</b></h6>
                     <div class="card-body">
-                        {% for d in hosp.doctor %}
-                        <p>{{d.name}}</p>
+                        {% for slot in slots %}
+                            <div class="card">
+                                <h6 class="card-header"><b>{{slot.doctor.name}}</b></h6>
+                                <br>
+                                <div class="card-body row no-gutters" style="padding: 4px;">
+                                    {% if slot.morning_slots %}
+                                    {% set m_slot = slot.morning_slots.split(',') %}
+                                    {% set start_time = m_slot[0].split("-")[0] %}
+                                    {% set end_time = m_slot[0].split("-")[1] %}
+                                    <div class="card col-md-3">
+                                        <h6 class="card-header"><b>Morning Slots</b></h6>
+                                        <div class="card-body">
+                                            {% if slot.m_capacity < (end_time.split(":")[0]|int - start_time.split(":")[0]|int )*2 %}
+                                            <p class="card-text">Timings : 
+                                                {{start_time}}-{{end_time}}
+                                            </p>
+                                            <p class="card-text">Available on : 
+                                            {% for m_slot in slot.morning_slots.split(',') %}
+                                                {% if '-' not in m_slot %}
+                                                    {{m_slot | title}},
+                                                {% endif %}
+                                            {% endfor %}
+                                            </p>
+                                            <a href="{{url_for('hospitals.appoint',slot_id=slot.id,c='morning')}}" class="stretched-link"></a>
+                                            {% else %}
+                                            <p>Slot is full</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    {% endif %}
+
+                                    {% if slot.afternoon_slots %}
+                                    {% set a_slot = slot.afternoon_slots.split(',') %}
+                                    {% set start_time = a_slot[0].split("-")[0] %}
+                                    {% set end_time = a_slot[0].split("-")[1] %}
+                                    <div class="card col-md-3">
+                                        <h6 class="card-header"><b>Afternoon Slots</b></h6>
+                                        <div class="card-body">
+                                            {% if slot.a_capacity < (end_time.split(":")[0]|int - start_time.split(":")[0]|int )*2 %}
+                                            <p class="card-text">Timings : 
+                                                {{start_time}}-{{end_time}}
+                                            </p>
+                                            <p class="card-text">Available on : 
+                                            {% for a_slot in slot.afternoon_slots.split(',') %}
+                                                {% if '-' not in a_slot %}
+                                                    {{a_slot | title}},
+                                                {% endif %}
+                                            {% endfor %}
+                                            </p>
+                                            <a href="{{url_for('hospitals.appoint',slot_id=slot.id,c='afternoon')}}" class="stretched-link"></a>
+                                            {% else %}
+                                            <p>Slot is full</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    {% endif %}
+
+                                    {% if slot.evening_slots %}
+                                    {% set e_slot = slot.evening_slots.split(',') %}
+                                    {% set start_time = e_slot[0].split("-")[0] %}
+                                    {% set end_time = e_slot[0].split("-")[1] %}
+                                    <div class="card col-md-3">
+                                        <h6 class="card-header"><b>Evening Slots</b></h6>
+                                        <div class="card-body">
+                                            {% if slot.e_capacity < (end_time.split(":")[0]|int - start_time.split(":")[0]|int )*2 %}
+                                            <p class="card-text">Timings : 
+                                                {{start_time}}-{{end_time}}
+                                            </p>
+                                            <p class="card-text">Available on : 
+                                            {% for e_slot in slot.evening_slots.split(',') %}
+                                                {% if '-' not in e_slot %}
+                                                    {{e_slot | title}},
+                                                {% endif %}
+                                            {% endfor %}
+                                            </p>
+                                            <a href="{{url_for('hospitals.appoint',slot_id=slot.id,c='evening')}}" class="stretched-link"></a>
+                                            {% else %}
+                                            <p>Slot is full</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    {% endif %}
+
+                                    {% if slot.night_slots %}
+                                    {% set n_slot = slot.night_slots.split(',') %}
+                                    {% set start_time = n_slot[0].split("-")[0] %}
+                                    {% set end_time = n_slot[0].split("-")[1] %}
+                                    <div class="card col-md-3">
+                                        <h6 class="card-header"><b>Night Slots</b></h6>
+                                        <div class="card-body">
+                                            {% if slot.n_capacity < (end_time.split(":")[0]|int - start_time.split(":")[0]|int )*2 %}
+                                            <p class="card-text">Timings : 
+                                                {{start_time}}-{{end_time}}
+                                            </p>
+                                            <p class="card-text">Available on : 
+                                            {% for n_slot in slot.night_slots.split(',') %}
+                                                {% if '-' not in n_slot %}
+                                                    {{n_slot | title}},
+                                                {% endif %}
+                                            {% endfor %}
+                                            </p>
+                                            <a href="{{url_for('hospitals.appoint',slot_id=slot.id,c='night')}}" class="stretched-link"></a>
+                                            {% else %}
+                                            <p>Slot is full</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    {% endif %}
+
+                                </div>
+                                <br>
+                            </div>
+                            <br>
                         {% endfor %}
                     </div>
-                </div>  
+                </div>
             </div>
             <div class="tab-pane fade" id="nav-feeds" role="tabpanel" aria-labelledby="nav-feedbacks-tab">
                 <div class="card m-2">
