@@ -104,6 +104,8 @@ class Appointments(db.Model):
     id = db.Column(db.Integer,primary_key=True)
     slot = db.Column(db.Text)
     day = db.Column(db.String(20))
+    user_name = db.Column(db.String(50))
+    user_contact = db.Column(db.Integer)
     user_email = db.Column(db.String(64))
     doc_id = db.Column(db.Integer,db.ForeignKey('doctors.id'))
     hosp_name = db.Column(db.String(20))

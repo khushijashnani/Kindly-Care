@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="card m-2">
+    <h6 class="card-header"><b>My Weekly Appointments</b></h6>
+    <div class="card-body">
+        {% if appointments %}
+        {% for a in appointments %}
+            <div class="card m-1">
+                <div class="card-body">
+                    <h6 class="card-title">Appointment for {{a.user_name | title }}<<a href="#"><small class="text-primary">{{a.user_email}}</small></a>></h6>
+                    <span>At {{a.slot}} on {{a.day | title }}day </span>
+                    <p>Contact no. {{a.user_contact}}</p>
+                </div>
+            </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+</div>
+
+
+{% endblock %}

@@ -9,7 +9,12 @@
             <p class="card-text text-muted">{{ hosp.doctor | length }} {% if hosp.doctor | length ==1 %}Doctor{% else %}Doctors{% endif %}</p>
         </div>  
         <div class="card-body">
-            <a href="#" class="btn btn-primary">Call Now</a>
+            <a href="#" id="call" class="btn btn-primary">Call Now</a>
+            <div id="toggle">
+                <hr>
+                <h5 class="text-primary">Contact No.</h5>
+                <h6 class="text-muted">{{ hosp.contact_no }}</h6>
+            </div>
         </div>   
     </div>
     <br>
@@ -35,11 +40,7 @@
                     </div>
                     <h6 class="card-header"><b>Timings</b></h6>
                     <div class="card-body">
-                        {% for d in hosp.days %}
-                            {% if loop.first or loop.last %}
-                            <p>{{ d }}</p>
-                            {% endif %}
-                        {% endfor %}
+                        <h6>{{ hosp.days[0] | title }} - {{ hosp.days[hosp.days| length -1] |title}}</h6>
                         <p>{{hosp.start_time }}-{{hosp.end_time }}</p>
                     </div>
                 </div>
@@ -65,7 +66,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body">
-                                        <h5 class="card-title text-primary">Dr. {{doc.name}}</h5>
+                                        <h5 class="card-title text-primary"> {{doc.name}}</h5>
                                         <p class="card-text">Qualification : {{doc.qualification}}</p>
                                         <p class="card-text">Specialization : {{doc.specialization}}</p>
                                         <p class="card-text">₹{{doc.consultation_fees}} per visit</p>
@@ -80,7 +81,7 @@
             </div>
             <div class="tab-pane fade" id="nav-slots" role="tabpanel" aria-labelledby="nav-slots-tab">
                 <div class="card">
-                    <h6 class="card-header"><b>Slots</b></h6>
+                    <h6 class="card-header"><b>Slots for today</b></h6>
                     <div class="card-body">
                         {% for slot in slots %}
                             <div class="card">
@@ -95,7 +96,7 @@
                                         <h6 class="card-header"><b>Morning Slots</b></h6>
                                         <div class="card-body">
                                             {% if slot.m_capacity < (end_time.split(":")[0]|int - start_time.split(":")[0]|int )*2 %}
-                                            <p class="card-text">Timings : 
+                                            <p class="card-text text-muted"><b>Timings : </b>
                                                 {{start_time}}-{{end_time}}
                                             </p>
                                             <p class="card-text">Available on : 
@@ -121,7 +122,7 @@
                                         <h6 class="card-header"><b>Afternoon Slots</b></h6>
                                         <div class="card-body">
                                             {% if slot.a_capacity < (end_time.split(":")[0]|int - start_time.split(":")[0]|int )*2 %}
-                                            <p class="card-text">Timings : 
+                                            <p class="card-text  text-muted"><b>Timings : </b>
                                                 {{start_time}}-{{end_time}}
                                             </p>
                                             <p class="card-text">Available on : 
@@ -147,7 +148,7 @@
                                         <h6 class="card-header"><b>Evening Slots</b></h6>
                                         <div class="card-body">
                                             {% if slot.e_capacity < (end_time.split(":")[0]|int - start_time.split(":")[0]|int )*2 %}
-                                            <p class="card-text">Timings : 
+                                            <p class="card-text  text-muted"><b>Timings : </b> 
                                                 {{start_time}}-{{end_time}}
                                             </p>
                                             <p class="card-text">Available on : 
@@ -173,7 +174,7 @@
                                         <h6 class="card-header"><b>Night Slots</b></h6>
                                         <div class="card-body">
                                             {% if slot.n_capacity < (end_time.split(":")[0]|int - start_time.split(":")[0]|int )*2 %}
-                                            <p class="card-text">Timings : 
+                                            <p class="card-text text-muted"><b>Timings : </b>
                                                 {{start_time}}-{{end_time}}
                                             </p>
                                             <p class="card-text">Available on : 
@@ -246,4 +247,11 @@
           </div>
     </div>
 </div>
+
+<script type="text/javascript">
+$("#toggle").hide();
+    $("#call").click(function(){
+        $("#toggle").slideToggle();
+    });
+</script>
 {% endblock %}

@@ -41,7 +41,7 @@ def appoint(slot_id,c):
         form.slot.choices = [(x,x) for x in slot.night_slots.split(",") if "-" in x]
         form.day.choices = [(x,x) for x in slot.night_slots.split(",") if "-" not in x]
     if form.validate_on_submit():
-        appointment = Appointments(slot=form.slot.data,day=form.day.data,user_email=form.user_email.data,hosp_name=slot.hospital_name,doc_id=slot.doc_id)
+        appointment = Appointments(slot=form.slot.data,user_name=form.user_name.data,user_contact=form.user_contact.data,day=form.day.data,user_email=form.user_email.data,hosp_name=slot.hospital_name,doc_id=slot.doc_id)
         if c == 'morning' :
             slot.m_capacity += 1
         if c == 'afternoon' :
@@ -52,13 +52,15 @@ def appoint(slot_id,c):
             slot.n_capacity += 1
         db.session.add(appointment)
         db.session.commit()
-        msg = Message(subject='Appointment Confirmation from Kindly-Care',body='Your appointment at '+appointment.hosp_name+', is confirmed in the slot '+appointment.slot+'on'+appointment.day+'. Thank you.',recipients=[appointment.user_email])
-        mail.send(msg)
         print(slot.e_capacity)
         print(appointment.slot)
+        print(appointment.user_name)
+        print(appointment.user_contact)
         print(appointment.day)
         print(appointment.doc_id)
         print(appointment.hosp_name)
+        msg = Message(subject='Appointment Confirmation from Kindly-Care',body='Your appointment at '+appointment.hosp_name+', is confirmed in the slot '+appointment.slot+'on'+appointment.day+'. Thank you.',recipients=[appointment.user_email])
+        mail.send(msg)
         flash('Your appointment has been booked! Please check your mail.','success')
         return redirect(url_for('doctors.viewDoctor',doctor_id=slot.doc_id))
     return render_template('appointment.html',form=form)
@@ -76,7 +78,7 @@ def register_hospital():
         
         doctor_name = form.doctor_name.data
         doctor = Doctors.query.filter_by(name=doctor_name).first()
-        print(doctor.id)
+
 
         if form.name.data in hospital_names:
             hosp = Hospitals.query.filter_by(name=form.name.data).first()
