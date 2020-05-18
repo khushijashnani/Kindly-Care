@@ -17,6 +17,9 @@ def hosp(hosp_id):
     feed = Feedback.query.filter_by(hosp_id=hosp_id).all()
     form = FeedBackForm()
     slots = Slots.query.filter_by(hospital_name=hosp.name).all()
+    current_date = str(datetime.now().time())
+    my_date = date.today()
+    current_day = calendar.day_name[my_date.weekday()]
 
     if form.validate_on_submit():
         feedback = Feedback(user_name=form.user_name.data,content=form.content.data,rating=form.rating.data,hosp_id=hosp_id)
@@ -24,7 +27,7 @@ def hosp(hosp_id):
         db.session.commit()
         flash('Thank you for your feedback!','success')
         return redirect(url_for('hospitals.hosp',hosp_id=hosp_id))
-    return render_template('hospital.html',hosp=hosp,form=form,feed=feed,slots=slots)
+    return render_template('hospital.html',hosp=hosp,form=form,feed=feed,slots=slots,current_date=current_date,current_day=current_day)
     
 
 @hospitals.route('/appoint/<int:slot_id>/<string:c>',methods=['GET','POST'])
@@ -65,7 +68,7 @@ def appoint(slot_id,c):
         print(appointment.day)
         print(appointment.doc_id)
         print(appointment.hosp_name)
-        msg = Message(subject='Appointment Confirmation from Kindly-Care',body='Your appointment at '+appointment.hosp_name+', is confirmed in the slot '+appointment.slot+' on '+appointment.day+'.\nYour Appointment ID is '+ str(appointment.appointment_id) + '\nThank you.',recipients=[appointment.user_email])
+        msg = Message(subject='Appointment Confirmation from Kindly-Care',body='Your appointment at '+appointment.hosp_name+', is confirmed in the slot '+appointment.slot+' on '+ appointment.current_date.strftime('%B %d, %Y') + ', ' +appointment.day.capitalize()+'.\nYour Appointment ID is '+ str(appointment.appointment_id) + '\nThank you.',recipients=[appointment.user_email])
         mail.send(msg)
         flash('Your appointment has been booked! Please check your mail.','success')
         return redirect(url_for('doctors.viewDoctor',doctor_id=slot.doc_id))

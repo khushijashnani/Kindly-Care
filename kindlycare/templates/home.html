@@ -62,12 +62,17 @@
             </div>
             <div class="col-md-8">
                 <div class="card-body">
-                    <h5 class="card-title text-primary"> {{doc.name}}</h5>
+                    <h5 class="card-title text-primary">Dr. {{doc.name}}</h5>
                     <p class="card-text">Qualification : {{doc.qualification}}</p>
                     <p class="card-text">Specialization : {{doc.specialization}}</p>
-                    <p class="card-text">₹{{doc.consultation_fees}} per visit</p>
-                    <a href="{{url_for('doctors.viewDoctor',doctor_id=doc.id)}}" class="btn btn-primary">View
-                        Profile</a>
+                    <div class="row no-gutters">
+                        <div class="col-md-6">
+                            <p class="card-text">₹{{doc.consultation_fees}} per visit</p>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="{{url_for('doctors.viewDoctor',doctor_id=doc.id)}}" class="btn btn-primary">View Profile</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

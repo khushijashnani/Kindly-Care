@@ -1,6 +1,7 @@
 from kindlycare import db, login_manager
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from datetime import datetime
 
 relate = db.Table('relate',
         db.Column('doctor_id', db.Integer, db.ForeignKey('doctors.id')),
@@ -110,3 +111,4 @@ class Appointments(db.Model):
     doc_id = db.Column(db.Integer,db.ForeignKey('doctors.id'))
     hosp_name = db.Column(db.String(20))
     appointment_id = db.Column(db.Integer)
+    current_date = db.Column(db.DateTime,default = datetime.utcnow)

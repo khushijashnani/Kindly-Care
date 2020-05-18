@@ -3,6 +3,7 @@ from flask_login import current_user
 from kindlycare import db
 from datetime import datetime,date
 import calendar
+from kindlycare.models import Slots,Reviews
 
 # from kindlycare.doctors.forms import FilterForm
 from kindlycare.models import Doctors, Hospitals, Feedback, Slots
@@ -15,8 +16,7 @@ def home():
         opt = request.form.get('options')
         return redirect(url_for('core.filter', opt=opt))
     
-    current_date = str(datetime.now().time())
-    print(current_date)
+    
     docs = []
     hosps = []
     hosps = Hospitals.query.limit(6).all()

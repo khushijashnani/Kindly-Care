@@ -72,15 +72,16 @@ def logout():
 @doctors.route('/feedback', methods=['GET', 'POST'])
 def view_feedbacks():
     reviews = Reviews.query.filter_by(doctor_id=current_user.id).all()
-    for rev in reviews:
-        print(rev.name)
-
+    print(type(reviews))
+    reviews.reverse()
     return render_template('feedback.html', reviews=reviews)
 
 @login_required
 @doctors.route('/appointments')
 def appointments():
-    return render_template('appointmentslist.html',appointments=current_user.appointments)
+    appointments = Appointments.query.filter_by(doc_id=current_user.id).all()
+    appointments.reverse()
+    return render_template('appointmentslist.html',appointments=appointments)
 
 
 @login_required

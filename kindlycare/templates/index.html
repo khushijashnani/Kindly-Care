@@ -1,43 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
 <div>
-    <!-- <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Filter
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <div class="form-check m-3">
-                <input class="form-check-input dropdown-item" type="checkbox" value="" id="defaultCheck1">
-                <label class="form-check-label" for="defaultCheck1">
-                    Default checkbox
-                </label>
-                <input class="form-check-input dropdown-item" type="checkbox" value="" id="defaultCheck1">
-                <label class="form-check-label" for="defaultCheck1">
-                    Default checkbox
-                </label>
-                <input class="form-check-input dropdown-item" type="checkbox" value="" id="defaultCheck1">
-                <label class="form-check-label" for="defaultCheck1">
-                    Default checkbox
-                </label>
-            </div>
-            <button class="btn btn-block btn-primary">Apply</button>
-
-        </div>
-    </li> --><br>
-
+    <br>
     <br>
 
-    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+    <div id="carouselExampleControls" class="carousel slide carousel-fade" data-ride="carousel" style="background: linear-gradient(to bottom right,blue,#add8e6);">
         <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="{{url_for('static',filename='tree.jpeg')}}" class="d-block w-100" alt="tree">
+            <div class="carousel-item active" style="text-align: center; padding-top: 5%; padding-bottom: 5%;">
+                <img src="{{url_for('static',filename='sthethoscope.jpg')}}" alt="tree" style="width: 50%;">
             </div>
-            <div class="carousel-item">
-                <img src="{{url_for('static',filename='tree2.jpeg')}}" class="d-block w-100 h-100" alt="tree2">
+            <div class="carousel-item" style="text-align: center; padding-top: 5%; padding-bottom: 5%;">
+                <img src="{{url_for('static',filename='medicines.jpg')}}" alt="tree2" style="width: 50%;">
             </div>
-            <div class="carousel-item">
-                <img src="{{url_for('static',filename='tree3.jpeg')}}" class="d-block w-100" alt="tree3">
+            <div class="carousel-item" style="text-align: center; padding-top: 5%; padding-bottom: 5%;">
+                <img src="{{url_for('static',filename='image.jpg')}}" alt="tree3" style="width: 50%;">
+            </div>
+            <div class="carousel-item" style="text-align: center; padding-top: 5%; padding-bottom: 5%;">
+                <img src="{{url_for('static',filename='doctor.jpg')}}" alt="tree3" style="width: 50%;">
+            </div>
+            <div class="carousel-item" style="text-align: center; padding-top: 5%; padding-bottom: 5%;">
+                <img src="{{url_for('static',filename='block1.jpg')}}" alt="tree3" style="width: 50%;">
             </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -137,7 +119,14 @@
             <div class="card-body">
                 <h5 class="card-title">Dr. {{doc.name}}</h5>
                 <p class="card-text">Specialization: {{doc.specialization}}</p>
-                <p class="card-text">Consultation Fees: {{doc.consultation_fees}}</p>
+                <div class="row no-gutters">
+                    <div class="col-md-6">
+                        <p class="card-text">₹{{doc.consultation_fees}} per visit</p>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="{{url_for('doctors.viewDoctor',doctor_id=doc.id)}}" class="btn btn-primary">View Profile</a>
+                    </div>
+                </div>
 
             </div>
         </div>
